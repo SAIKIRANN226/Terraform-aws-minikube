@@ -1,13 +1,10 @@
 module "ec2_instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
-
   name = "workstation"
   ami = data.aws_ami.centos8.id
   instance_type          = "t2.micro"
-  #key_name               = "user1"
-  #monitoring             = true
   vpc_security_group_ids = [aws_security_group.allow_minikube.id]
-  subnet_id              = "subnet-0ea509ad4cba242d7" #replace your default subnet id
+  subnet_id              = "subnet-0ea509ad4cba242d7" # Replace your default subnet id
   user_data = file("docker.sh")
   tags = {
     Terraform   = "true"
